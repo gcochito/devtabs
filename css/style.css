@@ -1,0 +1,257 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #eef8f6;
+    --title: #535555;
+    --heading: #8b522d;
+    --text: #676d6c;
+    --green: #73e1aa;
+    --image-width: 275px;
+    --image-height: 600px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--text);
+    font-family: "Poppins", sans-serif;
+}
+
+button {
+    font: inherit;
+}
+
+.page {
+    width: min(100%, 1408px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 10px 5.8% 30px;
+}
+
+.header {
+    margin-bottom: 55px;
+}
+
+.header h1 {
+    color: var(--title);
+    font-family: "Bodoni Moda", Georgia, serif;
+    font-size: clamp(2.2rem, 4vw, 3.7rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+}
+
+.header h1 span {
+    display: inline-block;
+    margin-left: 5px;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    vertical-align: middle;
+}
+
+.explorer {
+    display: grid;
+    grid-template-columns: var(--image-width) 1fr;
+    column-gap: 40px;
+    align-items: start;
+    max-width: 1280px;
+}
+
+.image-area {
+    position: relative;
+    width: var(--image-width);
+}
+
+.image-window {
+    width: var(--image-width);
+    height: var(--image-height);
+    overflow: hidden;
+    position: relative;
+}
+
+.image-track {
+    width: 100%;
+    transition: transform 650ms cubic-bezier(.77, 0, .18, 1);
+    will-change: transform;
+}
+
+.image-tab {
+    display: block;
+    width: 100%;
+    height: var(--image-height);
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+}
+
+.image-tab img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+
+.image-tab:focus-visible {
+    outline: 3px solid #3d9e70;
+    outline-offset: 3px;
+}
+
+.active-line {
+    position: absolute;
+    right: -8px;
+    top: 0;
+    width: 7px;
+    height: 140px;
+    border-radius: 0 2px 2px 0;
+    background: var(--green);
+    transition: top 650ms cubic-bezier(.77, 0, .18, 1);
+}
+
+.content-area {
+    min-width: 0;
+    position: relative;
+}
+
+.content-panel {
+    animation: contentIn 500ms ease both;
+}
+
+.content-panel[hidden] {
+    display: none;
+}
+
+@keyframes contentIn {
+    from {
+        opacity: 0;
+        transform: translateX(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.content-panel h2 {
+    margin: 0 0 18px;
+    color: var(--heading);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 2vw, 1.9rem);
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.content-panel p {
+    max-width: 900px;
+    margin-bottom: 20px;
+    font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.content-panel p:last-child {
+    margin-bottom: 0;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    :root {
+        --image-width: 230px;
+        --image-height: 500px;
+    }
+
+    .page {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .explorer {
+        column-gap: 28px;
+    }
+
+    .content-panel p {
+        line-height: 1.55;
+    }
+}
+
+/* Celular */
+@media (max-width: 680px) {
+    :root {
+        --image-width: min(68vw, 300px);
+        --image-height: min(115vw, 560px);
+    }
+
+    .page {
+        padding: 22px 20px 40px;
+    }
+
+    .header {
+        margin-bottom: 35px;
+    }
+
+    .header h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .explorer {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .image-area {
+        align-self: center;
+    }
+
+    .content-area {
+        width: 100%;
+    }
+
+    .content-panel h2 {
+        margin-bottom: 14px;
+    }
+
+    .content-panel p {
+        font-size: 0.92rem;
+        line-height: 1.65;
+    }
+}
+
+/* Celular pequeno */
+@media (max-width: 420px) {
+    :root {
+        --image-width: 72vw;
+        --image-height: 105vw;
+    }
+
+    .header h1 {
+        font-size: 1.9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .image-track,
+    .active-line {
+        transition: none;
+    }
+
+    .content-panel {
+        animation: none;
+    }
+}
